@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./lib/jquery-3.7.0.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 定义一个js对象转Ajax传输类型的函数
+        /* function ajaxToStr(obj) {
+            let arr = []
+            for (const key in obj) {
+                let str = ` `
+                str = key + `=` + obj[key]
+                arr.push(str)
+            }
+            return arr.join(`&`)
+        } */
+
+
+        //进阶版
+        function ajaxToStr(obj) {
+            let arr = []
+            for (const key in obj) {
+                if (obj[key] instanceof Array) {
+                    let str = ` `
+                    str = key + `=` + `[`+ajaxToStr(obj[key])+`]`
+                    arr.push(str)
+                } else if(obj[key] instanceof Object){
+                    let str = ` `
+                    str = key + `=` + `{`+ajaxToStr(obj[key])+`}`
+                    arr.push(str)
+                }else {
+                    let str = ` `
+                    str = key + `=` + obj[key]
+                    arr.push(str)
+                }
+            }
+            return arr.join(`&`)
+        }
+
+        
+
+        function myAjax(obj) {
+            let reqData = ajaxToStr(obj.data)
+
+            let method = obj.method.toUpperCase()
+
+            let xhr = new XMLHttpRequest()
+            /* xhr.timeout = 5000
+            xhr.ontimeout = function () {
+                console.log(`请求超时！`)
+            } */
+
+            if (method === `GET`) {
+                xhr.open(method, (obj.url + `?` + reqData))
+                xhr.send()
+            } else if (method === `POST`) {
+                xhr.open(method, obj.url)
+                xhr.setRequestHeader(`Content-Type`, `application/x/www-form-urlencoded`)
+                xhr.send(reqData)
+            }
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let res = JSON.parse(xhr.responseText)
+                    obj.success(res)
+                }
+            }
+        }
+
+
+        myAjax({
+            method: `get`,
+            url: `https://www.liulongbin.top:3006/api/getbook`,
+            data: {
+                id: 1,
+            },
+            success: function (res) {
+                console.log(res)
+            }
+        })
+
+
+
+    </script>
+</body>
+
+</html>

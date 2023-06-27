@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery-3.7.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 600px;
+            height: 600px;
+            margin: 20px auto 0;
+        }
+
+        .wrap table {
+            width: 600px;
+            border-collapse: collapse;
+        }
+
+        .wrap td,
+        .wrap th {
+            padding: 4px 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .wrap tr:nth-child(2n) {
+            background-color: aliceblue;
+        }
+
+        .wrap tr:hover {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <table cellspacing=0 cellpadding=0>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+
+        </table>
+    </div>
+
+    <script>
+        $(function () {
+            let arr = [
+                { id: 1, name: `西游记`, author: `吴承恩`, pub: `北京图书` },
+                { id: 2, name: `红楼梦`, author: `曹雪芹`, pub: `上海图书` },
+                { id: 3, name: `三国演义`, author: `罗贯中`, pub: `北京图书` },
+                { id: 4, name: `水浒传`, author: `施耐庵`, pub: `天津图书` },
+                { id: 1, name: `西游记`, author: `吴承恩`, pub: `北京图书` },
+                { id: 2, name: `红楼梦`, author: `曹雪芹`, pub: `上海图书` },
+                { id: 3, name: `三国演义`, author: `罗贯中`, pub: `北京图书` },
+                { id: 4, name: `水浒传`, author: `施耐庵`, pub: `天津图书` },
+            ]
+
+            window.localStorage.setItem(`a`, JSON.stringify(arr))
+
+        })
+
+        $(function () {
+            let arr = JSON.parse(localStorage.getItem(`a`))
+            let conArr = []
+
+            $.each(arr, (i,item) => {
+                conArr.push(`
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.author}</td>
+                    <td>${item.pub}</td>
+                </tr>
+                `)
+                console.log(item)
+            })
+            $(`tbody`).empty().append(conArr.join(` `))
+            // console.log(conArr)
+        })
+    </script>
+</body>
+
+</html>

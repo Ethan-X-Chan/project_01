@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery-3.7.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 600px;
+            height: 600px;
+            margin: 20px auto 0;
+        }
+  
+
+      
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <form action="">
+            <input type="text" name="text" placeholder="请输入用户名"><br>
+            <input type="password" name="paw" placeholder="请输入密码"><br><br>
+            <label ><input type="radio" name="sex" value="0">男</label>
+            <label ><input type="radio" name="sex" value="1">女</label>
+            <label ><input type="radio" name="sex" value="2">?</label><br><br>
+            <label ><input type="checkbox" name="like" value="0">红烧肉</label><br>
+            <label ><input type="checkbox" name="like" value="1">酸菜鱼</label><br>
+            <label ><input type="checkbox" name="like" value="2">肉末茄子</label><br>
+            <label ><input type="checkbox" name="like" value="3">夫妻肺片</label><br>
+            <label ><input type="checkbox" name="like" value="4">回锅肉</label><br><br>
+            <select name="dizhi">
+                <option value="0" selected> 北京 </option>
+                <option value="1"> 上海 </option>
+                <option value="2"> 广州 </option>
+                <option value="3"> 重庆 </option>
+                <option value="4"> 成都 </option>
+            </select><br><br>
+            <input type="file" name="file" multiple><button>确认</button><br><br>
+            <textarea name="textarea" cols="30" rows="10"></textarea><br><br>
+            <input type="reset" value="重置">
+            <input type="submit" value="提交">
+
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            $(`input[type="submit"]`).on(`click`, function (e) {
+                e.preventDefault()
+                console.log($(`form`).serialize())
+            })
+        })
+
+        $(`button`).on(`click`, function(e){
+            e.preventDefault()
+            console.log($(`input[type=file]`)[0].files)
+        })
+
+        let fd = new FormData()
+        fd.append(`namen`,`zs`)
+        fd.append(`age`,$(`input[type=file]`)[0].files[0])
+        
+        console.log(fd.keys())
+
+        
+    </script>
+</body>
+
+</html>
